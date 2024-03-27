@@ -1,0 +1,17 @@
+{
+  "name": "proj",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mathjs": "^12.4.1",
+    "test": "^3.3.0"
+  }
+}
