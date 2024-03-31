@@ -1,8 +1,7 @@
 import * as windows1251 from 'windows-1251';
 import fs from 'node:fs';
-import { forEach } from 'mathjs';
 
-var text = fs.readFileSync('table.txt', 'utf8');
+var text = fs.readFileSync('magma_substitution_table.txt', 'utf8');
 var table = text.split('\n');
 
 var outTable = [];
@@ -72,10 +71,6 @@ function xor(A, X){
     return AnX
 }
 
-function substitution(){
-    return
-}
-
 function cyclicShift(num){
     var strNum = '';
 
@@ -116,10 +111,12 @@ function cipher(str, key){
     }
     console.log(lSubstring[0], rSubstring[0]);
     F(rSubstring[0], key[0]);
+// TODO xor для левого подблока
+// TODO остальные циклы
 }
 
 function decipher(){
-
+// TODO расшифровка
 }
 
 gostCipher('-s', 'одиндватричетырепятьшестьсемьвос', 'абвгдежзийклмнопрстуфхцчшщъыьэюя');
