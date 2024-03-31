@@ -61,4 +61,4 @@ function decipher(str, key){
 }
 
 // vigenerCipher('-s', 'gorelov gleb egorovich', 'chromium');
-vigenerCipher('-r', 'ivisxwpsnlssswlaxptv', 'chromium');
+// vigenerCipher('-r', 'ivisxwpsnlssswlaxptv', 'chromium');

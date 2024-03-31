@@ -175,7 +175,7 @@ function decipher(str, key){
 }
 
 // playfair('-s', 'gorelov gleb egorovich', 'chromium');
-playfair('-r', 'krcgkmxeefikkromcehr', 'chromium');
+// playfair('-r', 'krcgkmxeefikkromcehr', 'chromium');
 
 // playfair(process.argv[2], process.argv[3], process.argv[4] || 'example');
 
