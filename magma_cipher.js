@@ -131,17 +131,24 @@ function cipher(str, key){
         rSubstring.push(str.slice(i + 4, i + 8));
     }
 
-    console.log('string[0]:');
-    console.table([lSubstring[0], rSubstring[0]]);
+    console.log('string:');
+    console.log(str);
 
-    var ciphered = round(lSubstring[0], rSubstring[0], key);
+    var ciphered = new Uint16Array(str.length);
+    for (let i = 0; i < lSubstring.length; i++) {
+        var cipheredSubstrings = round(lSubstring[i], rSubstring[i], key);
+        for (let j = 0; j < 4; j++) {
+            ciphered[i * 8 + j] = cipheredSubstrings[0][j];
+            ciphered[i * 8 + j + 4] = cipheredSubstrings[1][j];
+        }
+    }
 
-    console.log('ciphered string[0]:');
-    console.table([ciphered[0], ciphered[1]]);
+    console.log('ciphered string:');
+    console.log(ciphered);
 }
 
 function decipher(){
 // TODO расшифровка
 }
 
-gostCipher('-s', 'одиндватричетырепятьшестьсемьвос', 'абвгдежзийклмнопрстуфхцчшщъыьэюя');
+gostCipher('-s', 'одиндватричетырепятьшестьсемьвос', 'абвгдежзийклмноп');
