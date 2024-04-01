@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "mathjs": "^12.4.1",
-    "test": "^3.3.0",
-    "windows-1251": "^3.0.4"
+    "test": "^3.3.0"
   }
 }
