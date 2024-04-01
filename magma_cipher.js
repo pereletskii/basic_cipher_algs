@@ -72,6 +72,7 @@ function xor(A, X){
 }
 
 function cyclicShift(num){
+    var binNum = new Uint16Array(num.length / 2);
     var strNum = '';
 
     for (let i = 0; i < num.length; i++) {
@@ -85,20 +86,40 @@ function cyclicShift(num){
     for (let i = 0; i < 11; i++) {
         strNum = strNum.slice(1) + strNum[0];
     }
-// TODO преборазовать из двоичного в десятичный вид (блоками по 8 бит)
-    return strNum
+
+    for (let i = 0; i < strNum.length; i+=8) {
+        binNum[i/8] = parseInt(strNum.slice(i, i + 8), 2); 
+    }
+
+    return binNum
 }
 
 function F(r, key){
     var Fi = xor(r, key);
-    console.log(Fi);
     for (let i = Fi.length - 1; i >= 0; i--) {
         Fi[i] = outTable[Fi[i]][i];
     }
 
-    cyclicShift(Fi);
+    return cyclicShift(Fi)
+}
 
-    return
+
+function round(l, r, key, i = 0){
+    var n;
+    if (i < 24) {
+        n = i % 8;
+    } else {
+        n = 7 - i % 8;
+    }
+
+    var r1 = F(r, key[n]);
+    l = r;
+
+    if (i == 31) {
+        return [r1, l];
+    }
+
+    return round(l, r1, key, (i + 1));
 }
 
 function cipher(str, key){
@@ -109,10 +130,14 @@ function cipher(str, key){
         lSubstring.push(str.slice(i, i + 4));
         rSubstring.push(str.slice(i + 4, i + 8));
     }
-    console.log(lSubstring[0], rSubstring[0]);
-    F(rSubstring[0], key[0]);
-// TODO xor для левого подблока
-// TODO остальные циклы
+
+    console.log('string[0]:');
+    console.table([lSubstring[0], rSubstring[0]]);
+
+    var ciphered = round(lSubstring[0], rSubstring[0], key);
+
+    console.log('ciphered string[0]:');
+    console.table([ciphered[0], ciphered[1]]);
 }
 
 function decipher(){
