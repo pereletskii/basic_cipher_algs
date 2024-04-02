@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bitwise": "^2.2.1",
     "mathjs": "^12.4.1",
     "test": "^3.3.0"
   }
