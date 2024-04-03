@@ -142,12 +142,12 @@ function gostCipher(type, str, key){
 }
 
 var key = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
-var msg = 'алё это афганистан? нам нужен один килограмм!';
+var msg = 'одиндват';
 
 var encrypted = gostCipher('-s', msg, key);
-console.log(`Выходной текст: '${encrypted}'\n`);
+console.log(`Зашифрованный  текст: '${encrypted}'\n`);
 
 var decrypted = gostCipher('-r', encrypted, key);
-console.log(`Выходной текст: '${decrypted}'\n`);
+console.log(`Расшифрованный текст: '${decrypted}'\n`);
 
 //TODO вручную проверить каждый этап алогритма

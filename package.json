@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "bitwise": "^2.2.1",
+    "endianness": "^8.0.2",
     "mathjs": "^12.4.1",
-    "test": "^3.3.0"
+    "test": "^3.3.0",
+    "windows-1251": "^3.0.4"
   }
 }
