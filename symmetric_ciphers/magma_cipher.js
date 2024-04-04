@@ -4,7 +4,7 @@ import * as bitwise from 'bitwise';
 import { mod } from 'mathjs';
 import {encode, decode} from 'windows-1251';
 
-var text = fs.readFileSync('magma_substitution_table.txt', 'utf8');
+var text = fs.readFileSync('basic_cipher_algs/symmetric_ciphers/magma_substitution_table.txt', 'utf8');
 var table = text.split('\n');
 
 var outTable = [];
