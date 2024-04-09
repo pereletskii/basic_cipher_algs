@@ -4,7 +4,7 @@ import endianness from 'endianness';
 import { mod } from 'mathjs';
 
 
-const text = fs.readFileSync('basic_cipher_algs/symmetric_ciphers/magma_substitution_table.txt', 'utf8');
+const text = fs.readFileSync('symmetric_ciphers/magma_substitution_table.txt', 'utf8');
 const table = text.split('\n'); // Считывание таблицы замещения в один массив
 
 var substitutionTable = []; // Таблица замещения в байтах
@@ -41,22 +41,49 @@ function sumMod32(A, X){ // Сумма по модулю 2^32
     return bufNum
 }
 
+function circularShift(str, n){
+    for (let i = 1; i < n; i++) {
+        str = str.slice(i) + str.slice(0, i);
+    }
+    return str
+}
+
 function f(A, X){
     let sum = sumMod32(A, X); // Сумма подстроки и подключа по модулю 2^32
+    let binNum = ''
+    for (let i = 0; i < 4; i++) {
+        let num = sum[i].toString(2).padStart(8, '0');
+        binNum += (
+            substitutionTable[parseInt(num.slice(0, 4), 2)][i*2]
+                .toString(2).padStart(4, '0') + 
+            substitutionTable[parseInt(num.slice(4, 8), 2)][i*2+1]
+                .toString(2).padStart(4, '0')
+        );
+    }
 
-    // TODO написать разбивку на 8 подстрок по 4 бита и их замену по таблице
+    let newBuff = new Buffer.alloc(4);
+    newBuff.writeUInt32BE(
+        parseInt(
+            circularShift(binNum, 11), 2
+        ), 0
+    )
+    console.log(newBuff);
 
-    return
+    return newBuff
+}
+
+function xor() {
+    // TODO реализовать XOR
 }
 
 function round(str, key, n){
     let l, r, l1, r1;
+    // TODO реализовать высчитывание i-го подключа n-ой операции
 
     l = str.subarray(0, 4);
     r = str.subarray(4, 8);
-
     // TODO реализовать и протестировать раунд
-    // l1 = xor(r, f(l, key[i]);
+    // l1 = xor(r, f(l, key[i]));
     // r1 = l;
     
     return
@@ -64,8 +91,8 @@ function round(str, key, n){
 
 var key = keygen('testtesttesttesttesttesttesttest');
 var str = strToBits('глебглеб');
-// round(str, key);
-f(str.subarray(0, 4), key[0]);
+round(str, key);
+// f(str.subarray(0, 4), key[0]);
 
 // map(key, x => {
 //     console.log(decode(x));
