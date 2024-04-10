@@ -64,7 +64,7 @@ function generateLargePrime(numBits) {
   while (!isProbablyPrime(randomNumber)) {
     randomNumber += 2n;
   }
-  return randomNumber.toString();
+  return randomNumber;
 }
 
 export default generateLargePrime;

@@ -1,4 +1,16 @@
 import generateLargePrime from "./generate_prime.js";
+import { modInv } from "bigint-mod-arith";
+
+function gcd(a, m){
+  const s = []
+    let b = m
+    while(b) {
+      [a, b] = [b, a % b]
+      s.push({a, b})
+  }
+
+  return s[s.length - 1].a
+}
 
 function modInverse(a, m) {
     a = (a % m + m) % m
@@ -19,15 +31,31 @@ function modInverse(a, m) {
 }
 
 function keygen(len=1024) {
-    let p = BigInt(generateLargePrime(Math.floor(len / 2)));
-    let q = BigInt(generateLargePrime(Math.floor(len / 2)));
-    let e = BigInt(65537);
+    let p = generateLargePrime(len);
+    let q = generateLargePrime(len);
+    
+    while (p == q){
+      p = generateLargePrime(len);
+      q = generateLargePrime(len);
+    }
+
     let n = BigInt(p * q);
+    
+    let e, fi, d
+    let i = 3;
 
-    let fi = (p - BigInt(1)) * (q - BigInt(1));
-    let d = modInverse(e, fi);
+    while (true){
+      fi = (p - BigInt(1)) * (q - BigInt(1));
+      e = BigInt(i);
+      if (gcd(e, fi) == 1){
+        d = modInv(e, fi);
+        break;
+      }
+      i += 1;
+    }
 
-    return { publicKey: [e.toString(36), n.toString(36)], privateKey: [d.toString(36), n.toString(36)] };
+    console.log(e, p, q, fi, n, d, n)
+    return { publicKey: [e, n], privateKey: [d, n] };
 }
 
 export default keygen;

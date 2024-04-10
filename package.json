@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bigint-mod-arith": "^3.3.1",
     "bitwise": "^2.2.1",
     "endianness": "^8.0.2",
     "mathjs": "^12.4.1",
