@@ -11,7 +11,7 @@ function strToBin(str){
     return numsArray;
 }
 
-function round(bin, key){
+function encryptRound(bin, key){
     let sum = 0;
     for (let i = 0; i < bin.length; i++) {
         if (bin[i] == 1) sum += key[i];
@@ -23,24 +23,32 @@ function round(bin, key){
 function encrypt(str, key) {
     let binArr = strToBin(str);
     for (let i = 0; i < binArr.length; i++) {
-        binArr[i] = round(binArr[i], key);
+        binArr[i] = encryptRound(binArr[i], key);
     }
 
     return binArr;
 }
 
-function decryptRound(num, key){
+function decryptRound(num, key) {
     let str = '';
 
-    for (let i = key.length - 1; i >= 0; i--) {
-        if (key[i] - num > 0) {
+    for (let i = 7; i >= 0; i--) {
+        if (num - key[i] >= 0) {
             str += '1';
-        } else if (key[i] - num < 0) {
+            num -= key[i];
+        } else if (num - key[i] < 0) {
             str += '0';
+        } else {
+            break;
         }
     }
 
-    return str.padStart(8, '0');
+    return parseInt(
+        str.padStart(8, '0')
+        .split('')
+        .reverse()
+        .join(''), 2
+    );
 }
 
 function decrypt(str, key) {
@@ -50,18 +58,15 @@ function decrypt(str, key) {
         decArr.push(
             decryptRound(str[i] * n1 % key.m, key.key)
         );
-        console.log(key.n, key.m, n1, str[i] * n1 % key.m);
     }
-    
-    return decArr;
-}
 
-let msg = 'всем привет!';
+    return decode(decArr);
+}
+export { encrypt, decrypt };
+/* 
+let msg = 'привет';
 let key = keygen(8);
 let crypted = encrypt(msg, key.openKey);
 let encrypted = decrypt(crypted, key.privateKey);
-// TODO допилить шифровку
 
-console.log(msg, crypted, encrypted, '\n');
-
-export { encrypt, decrypt };
+console.log(msg, crypted, encrypted, '\n'); */
