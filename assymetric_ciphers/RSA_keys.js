@@ -12,7 +12,7 @@ function gcd(a, m){
   return s[s.length - 1].a
 }
 
-function modInverse(a, m) {
+/* function modInverse(a, m) {
     a = (a % m + m) % m
     // find the gcd
     const s = []
@@ -28,7 +28,7 @@ function modInverse(a, m) {
       [x, y] = [y,  x - y * (s[i].a / s[i].b)]
     }
     return (y % m + m) % m
-}
+} */
 
 function keygen(len=1024) {
     let p = generateLargePrime(len);
@@ -54,7 +54,7 @@ function keygen(len=1024) {
       i += 1;
     }
 
-    console.log(e, p, q, fi, n, d, n)
+    // console.log(e, p, q, fi, n, d, n)
     return { publicKey: [e, n], privateKey: [d, n] };
 }
 
