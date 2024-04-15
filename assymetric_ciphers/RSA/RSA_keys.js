@@ -1,4 +1,4 @@
-import generateLargePrime from "./generate_prime.js";
+import generateLargePrime from "../generate_prime.js";
 import { modInv } from "bigint-mod-arith";
 
 function gcd(a, m){

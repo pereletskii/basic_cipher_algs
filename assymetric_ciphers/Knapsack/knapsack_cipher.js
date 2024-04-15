@@ -1,6 +1,6 @@
 import keygen from "./knapsack_keys.js";
 import { encode, decode } from 'windows-1251';
-import { invmod, mod } from 'mathjs';
+import { invmod } from 'mathjs';
 
 function strToBin(str){
     let numsArray = [];
