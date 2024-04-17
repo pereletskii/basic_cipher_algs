@@ -20,14 +20,12 @@ function strToNums(msg) {
     return encode(msg);
 }
 
-function hash(msg, len=16) {
-    let p = generateLargePrime(len);
-    let q = generateLargePrime(len);
-    let n = p*q;
+function random(min=0, max=2**10) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
 
-    let h0 = Math.floor(
-        Math.random() * 2 ** 10
-    );
+function hash(msg, len=16, p = generateLargePrime(len), q = generateLargePrime(len), h0=random()) {
+    let n = p*q;
     let h1;
 
     msg = strToNums(msg);
@@ -38,7 +36,7 @@ function hash(msg, len=16) {
         h0 = h1;
     }
 
-    h1 = hexTostr(h1);
+    // h1 = hexTostr(h1);
     // console.log(`   h1 = ${h1}`);
 
     return h1;
